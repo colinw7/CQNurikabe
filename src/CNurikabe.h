@@ -105,7 +105,7 @@ class CNurikabe {
     }
   };
 
-  typedef std::set<Pool *>               Pools;
+  typedef std::set<Pool *>              Pools;
   typedef std::set<Gap *>               Gaps;
   typedef std::set<Region *, RegionCmp> Regions;
 
