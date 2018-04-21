@@ -238,9 +238,7 @@ mousePressEvent(QMouseEvent *e)
     showSolutions();
   }
 
-#ifdef DRAW_GRAPH
   graph_.reset();
-#endif
 
   redraw();
 }
@@ -397,9 +395,7 @@ keyPressEvent(QKeyEvent *e)
       else if (currentCell_->isWhite() || currentCell_->isNumber())
         currentCell_->getGrid()->buildRegions();
 
-#ifdef DRAW_GRAPH
       buildGraph();
-#endif
 
       redraw();
     }
@@ -498,7 +494,6 @@ showSolutions()
   }
 }
 
-#ifdef DRAW_GRAPH
 void
 CQNurikabeCanvas::
 buildGraph()
@@ -536,7 +531,6 @@ buildGraph()
 
   //mst_ = graph_.minimumSpaningTree();
 }
-#endif
 
 void
 CQNurikabeCanvas::
@@ -664,7 +658,6 @@ draw()
 
   //-----
 
-#ifdef DRAW_GRAPH
   const Graph::EdgeList &edges = graph_.getEdges();
 
   Graph::EdgeList::const_iterator pedge1 = edges.begin();
@@ -686,7 +679,6 @@ draw()
 
     painter.drawLine(x1 + cell_size_/2, y1 + cell_size_/2, x2 + cell_size_/2, y2 + cell_size_/2);
   }
-#endif
 
   //-----
 

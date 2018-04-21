@@ -3,10 +3,7 @@
 #include <QPushButton>
 #include <QStatusBar>
 #include <CNurikabe.h>
-
-#ifdef DRAW_GRAPH
 #include <CGraph.h>
-#endif
 
 class CQNurikabeApp;
 
@@ -37,9 +34,7 @@ class CQNurikabeCanvas : public QWidget {
   CNurikabe::Solution getCurrentSolution();
   CNurikabe::Solution getCurrentSolution(const CNurikabe::Solutions &solutions);
 
-#ifdef DRAW_GRAPH
   void buildGraph();
-#endif
 
  protected:
   void mousePressEvent(QMouseEvent *);
@@ -66,10 +61,8 @@ class CQNurikabeCanvas : public QWidget {
   bool getCellSize(int *size) const;
 
  private:
-#ifdef DRAW_GRAPH
   typedef CGraph<CNurikabe::Coord,int>     Graph;
   typedef CGraphNode<CNurikabe::Coord,int> Node;
-#endif
 
   CQNurikabeApp        *app_;
   QPixmap               pixmap_;
@@ -87,9 +80,7 @@ class CQNurikabeCanvas : public QWidget {
   int                   showSolutionsDepth_;
   CNurikabe::Solutions  solutions_;
   bool                  escape_;
-#ifdef DRAW_GRAPH
   Graph                 graph_;
-#endif
 };
 
 class CQNurikabeApp;
