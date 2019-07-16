@@ -1070,7 +1070,7 @@ checkBreak()
 
   CHRTime time = CHRTimerMgrInst->elapsed(timer_);
 
-  CHRTime d = CHRTimerMgr::diffHRTime(time, CHRTimerMgr::getHRTime());
+  CHRTime d = CHRTime::diffTime(time, CHRTime::getTime());
 
   app_->showMessage(QString("Busy: %1 secs (%2)").arg(d.secs).
                       arg(nurikabe->getGrid()->getCoordDepth()));

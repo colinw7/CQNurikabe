@@ -95,7 +95,7 @@ class CNurikabe {
   class Gap;
 
   struct RegionCmp {
-    bool operator()(const Region *a, const Region *b) {
+    bool operator()(const Region *a, const Region *b) const {
       if      (a->getValue() <  b->getValue())
         return true;
       else if (a->getValue() >  b->getValue())
