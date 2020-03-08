@@ -37,14 +37,14 @@ class CQNurikabeCanvas : public QWidget {
   void buildGraph();
 
  protected:
-  void mousePressEvent(QMouseEvent *);
-  void mouseMoveEvent(QMoveEvent *);
+  void mousePressEvent(QMouseEvent *) override;
+  void mouseMoveEvent (QMouseEvent *) override;
 
-  void keyPressEvent(QKeyEvent *);
+  void keyPressEvent(QKeyEvent *) override;
 
-  void paintEvent(QPaintEvent *);
+  void paintEvent(QPaintEvent *) override;
 
-  void resizeEvent(QResizeEvent *);
+  void resizeEvent(QResizeEvent *) override;
 
   void showSolutions();
 

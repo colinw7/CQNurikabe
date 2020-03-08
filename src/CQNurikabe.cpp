@@ -245,7 +245,7 @@ mousePressEvent(QMouseEvent *e)
 
 void
 CQNurikabeCanvas::
-mouseMoveEvent(QMoveEvent *)
+mouseMoveEvent(QMouseEvent *)
 {
 }
 
