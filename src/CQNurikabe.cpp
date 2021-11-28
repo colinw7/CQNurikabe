@@ -509,7 +509,7 @@ buildGraph()
   for (p1 = coords.begin(), p2 = coords.end(); p1 != p2; ++p1) {
     const CNurikabe::Coord &c1 = *p1;
 
-    Node *node1 = graph_.addNode(c1);
+    auto node1 = graph_.addNode(c1);
 
     CNurikabe::Coords::const_iterator p3 = p1;
 
@@ -518,7 +518,7 @@ buildGraph()
     for ( ; p3 != p2; ++p3) {
       const CNurikabe::Coord &c2 = *p3;
 
-      Node *node2 = graph_.addNode(c2);
+      auto node2 = graph_.addNode(c2);
 
       int dr = abs(c1.row - c2.row);
       int dc = abs(c1.col - c2.col);
@@ -664,8 +664,8 @@ draw()
   Graph::EdgeList::const_iterator pedge2 = edges.end  ();
 
   for ( ; pedge1 != pedge2; ++pedge1) {
-    Node *node1 = (*pedge1)->getNode1();
-    Node *node2 = (*pedge1)->getNode2();
+    auto node1 = (*pedge1)->fromNode();
+    auto node2 = (*pedge1)->toNode  ();
 
     const CNurikabe::Coord &c1 = node1->getData();
     const CNurikabe::Coord &c2 = node2->getData();

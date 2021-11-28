@@ -3,7 +3,7 @@
 #include <QPushButton>
 #include <QStatusBar>
 #include <CNurikabe.h>
-#include <CGraph.h>
+#include <CGraphTmpl.h>
 
 class CQNurikabeApp;
 
@@ -61,8 +61,8 @@ class CQNurikabeCanvas : public QWidget {
   bool getCellSize(int *size) const;
 
  private:
-  typedef CGraph<CNurikabe::Coord,int>     Graph;
-  typedef CGraphNode<CNurikabe::Coord,int> Node;
+  typedef CGraphMgr::GraphT<CNurikabe::Coord, int>        Graph;
+  typedef CGraphMgr::GraphT<CNurikabe::Coord, int>::NodeP NodeP;
 
   CQNurikabeApp        *app_;
   QPixmap               pixmap_;
