@@ -8,7 +8,7 @@
 #include <map>
 #include <iostream>
 
-#define BLACK_REGION_CONSTRAINT ((CNurikabe::Region *) 0x1)
+#define BLACK_REGION_CONSTRAINT (reinterpret_cast<CNurikabe::Region *>(0x1))
 
 class CNurikabe {
  public:
@@ -464,7 +464,7 @@ class CNurikabe {
      cell(cell1) {
     }
 
-    bool operator()(const Cell *a, const Cell *b) {
+    bool operator()(const Cell *a, const Cell *b) const {
       if      (a->dist(cell) <  b->dist(cell))
         return true;
       else if (a->dist(cell) == b->dist(cell))

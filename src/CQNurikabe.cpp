@@ -675,7 +675,7 @@ draw()
     cellToXY(c1.row, c1.col, &x1, &y1);
     cellToXY(c2.row, c2.col, &x2, &y2);
 
-    painter.setPen(QPen(QBrush(QColor(255,0,0)), 2.0));
+    painter.setPen(QPen(QBrush(QColor(255, 0, 0)), 2.0));
 
     painter.drawLine(x1 + cell_size_/2, y1 + cell_size_/2, x2 + cell_size_/2, y2 + cell_size_/2);
   }
@@ -713,7 +713,7 @@ drawBoard(QPainter *painter)
 
          QString str = QString("%1").arg(cell->getNumber());
 
-         int char_width = fm.width(str);
+         int char_width = fm.horizontalAdvance(str);
 
          painter->setPen(QPen(Qt::black));
 
@@ -724,7 +724,7 @@ drawBoard(QPainter *painter)
        else if (cell->isWhite()) {
          QRect rect(x, y, cell_size_, cell_size_);
 
-         painter->fillRect(rect, QBrush(QColor(255,255,255)));
+         painter->fillRect(rect, QBrush(QColor(255, 255, 255)));
 
          if (drawConstraint_)
            drawRegionConstraint(painter, cell, x, y);
@@ -732,12 +732,12 @@ drawBoard(QPainter *painter)
        else if (cell->isBlack()) {
          QRect rect(x, y, cell_size_, cell_size_);
 
-         painter->fillRect(rect, QBrush(QColor(0,0,0)));
+         painter->fillRect(rect, QBrush(QColor(0, 0, 0)));
        }
        else { // unknown
          QRect rect(x, y, cell_size_, cell_size_);
 
-         painter->fillRect(rect, QBrush(QColor(200,200,200)));
+         painter->fillRect(rect, QBrush(QColor(200, 200, 200)));
 
          if (drawConstraint_)
            drawRegionConstraint(painter, cell, x, y);
@@ -746,11 +746,11 @@ drawBoard(QPainter *painter)
        if (cell == currentCell_) {
          QRect rect(x, y, cell_size_, cell_size_);
 
-         painter->setPen(QColor(200,100,100));
+         painter->setPen(QColor(200, 100, 100));
 
          painter->drawRect(rect);
 
-         painter->fillRect(rect, QBrush(QColor(0,255,0,80)));
+         painter->fillRect(rect, QBrush(QColor(0, 255, 0, 80)));
        }
 
        x += cell_size_;
@@ -799,7 +799,7 @@ drawRegionConstraint(QPainter *painter, const CNurikabe::Cell *cell, int x, int 
 
   QString str = QString("%1").arg(region->getValue());
 
-  int char_width = fm1.width(str);
+  int char_width = fm1.horizontalAdvance(str);
 
   painter->setPen(QPen(Qt::black));
 
@@ -830,7 +830,7 @@ drawConnections(QPainter *painter, const CNurikabe::Solutions &solutions)
       y2 = dy_ + coord.row*cell_size_ + cell_size_/2;
 
       if (x1 != 0) {
-        painter->setPen(QColor(100,100,200));
+        painter->setPen(QColor(100, 100, 200));
 
         painter->drawLine(x1, y1, x2, y2);
       }
@@ -863,7 +863,7 @@ drawCurrentConnection(QPainter *painter, const CNurikabe::Solutions &solutions)
     y2 = dy_ + coord.row*cell_size_ + cell_size_/2;
 
     if (x1 != 0) {
-      painter->setPen(QColor(100,100,200));
+      painter->setPen(QColor(100, 100, 200));
 
       painter->drawLine(x1, y1, x2, y2);
     }
