@@ -11,7 +11,7 @@
 #include <stdexcept>
 
 struct changedSignal : std::exception {
-  changedSignal(const char *msg1=NULL) :
+  changedSignal(const char *msg1=nullptr) :
    msg(msg1) {
   }
 
@@ -19,7 +19,7 @@ struct changedSignal : std::exception {
 };
 
 struct breakSignal : std::exception {
-  breakSignal(const char *msg1=NULL) :
+  breakSignal(const char *msg1=nullptr) :
    msg(msg1) {
   }
 
@@ -44,7 +44,7 @@ static bool isLogging() {
 
   if (! initialized) {
     initialized = true;
-    logging     = (getenv("CNURIKABE_LOG") != NULL);
+    logging     = (getenv("CNURIKABE_LOG") != nullptr);
   }
 
   return logging;
@@ -91,8 +91,7 @@ T set_index(const std::set<T> &s, int i) {
 //-------------
 
 CNurikabe::
-CNurikabe() :
- grid_(NULL)
+CNurikabe()
 {
   setPuzzle(1);
 }
@@ -1408,7 +1407,7 @@ setConstraints()
 
     Region *region = island->getRegionConstraint();
 
-    if (region != NULL)
+    if (region)
       region->addOneWhiteConstraint(island->getCoords());
   }
 }
@@ -1431,7 +1430,7 @@ void
 CNurikabe::Grid::
 addOneWhiteConstraint(const Coords &coords)
 {
-  Region *region = NULL;
+  Region *region = nullptr;
   bool    same   = true;
 
   Coords::const_iterator pc1, pc2;
@@ -1441,7 +1440,7 @@ addOneWhiteConstraint(const Coords &coords)
 
     Region *region1 = cell->getRegionConstraint();
 
-    if      (region == NULL)
+    if      (! region)
       region = region1;
     else if (region != region1) {
       same = false;
@@ -1471,7 +1470,7 @@ void
 CNurikabe::Grid::
 addOneBlackConstraint(const Coords &coords)
 {
-  Region *region = NULL;
+  Region *region = nullptr;
   bool    same   = true;
 
   Coords::const_iterator pc1, pc2;
@@ -1481,7 +1480,7 @@ addOneBlackConstraint(const Coords &coords)
 
     Region *region1 = cell->getRegionConstraint();
 
-    if      (region == NULL)
+    if      (! region)
       region = region1;
     else if (region != region1) {
       same = false;
@@ -2183,7 +2182,7 @@ generate()
     }
 
     // chose valid expand cell
-    Cell *cell  = NULL;
+    Cell *cell  = nullptr;
     bool  found = false;
 
     while (true) {
@@ -3856,7 +3855,7 @@ addIsland(Island *island)
 {
   Region *region = island->getRegionConstraint();
 
-  if (region != NULL)
+  if (region)
     regions_.insert(region);
   else
     islands_.insert(island);
@@ -3914,7 +3913,7 @@ solve()
       Cell *cell = grid_->getCell(*pc1);
 
       bool    found  = false;
-      Region *region = NULL;
+      Region *region = nullptr;
 
       Regions::const_iterator pr1, pr2;
 
@@ -3923,7 +3922,7 @@ solve()
 
         if (grid_->canConnectToRegion(cell, region1)) {
           if (found) {
-            region = NULL;
+            region = nullptr;
             break;
           }
 
@@ -3984,8 +3983,7 @@ print(std::ostream &os) const
 
 CNurikabe::Cell::
 Cell(Grid *grid, int value, const Coord &coord) :
- grid_(grid), coord_(coord), value_(value), solution_(UNKNOWN), region_constraint_(NULL),
- region_(NULL), pool_(NULL), island_(NULL), gap_(NULL)
+ grid_(grid), coord_(coord), value_(value)
 {
 }
 
@@ -3995,11 +3993,11 @@ init()
 {
   value_             = UNKNOWN;
   solution_          = UNKNOWN;
-  region_constraint_ = NULL;
-  region_            = NULL;
-  pool_              = NULL;
-  island_            = NULL;
-  gap_               = NULL;
+  region_constraint_ = nullptr;
+  region_            = nullptr;
+  pool_              = nullptr;
+  island_            = nullptr;
+  gap_               = nullptr;
 }
 
 int
@@ -4043,7 +4041,7 @@ setRegion(Region *region)
 {
   if (getRegion() == region) return;
 
-  logicAssert(grid_, getRegion() == NULL, "cell already has region");
+  logicAssert(grid_, ! getRegion(), "cell already has region");
 
   region_ = region;
 }
@@ -4207,7 +4205,7 @@ setRegionConstraint(Region *region)
       logicAssert(grid_, region->getValue() == number, "no solution match");
   }
 
-  if      (region_constraint_ == NULL)
+  if      (! region_constraint_)
     region_constraint_ = region;
   else if (region_constraint_ != region)
     region_constraint_ = BLACK_REGION_CONSTRAINT;
@@ -4222,11 +4220,11 @@ reset()
   if (! isNumber())
     value_ = UNKNOWN;
 
-  region_constraint_ = NULL;
+  region_constraint_ = nullptr;
 
   resetPointers();
 
-  region_ = NULL;
+  region_ = nullptr;
 }
 
 void
@@ -4234,18 +4232,18 @@ CNurikabe::Cell::
 resetPointers()
 {
   if (! isNumber())
-    region_ = NULL;
+    region_ = nullptr;
 
-  pool_   = NULL;
-  island_ = NULL;
-  gap_    = NULL;
+  pool_   = nullptr;
+  island_ = nullptr;
+  gap_    = nullptr;
 }
 
 void
 CNurikabe::Cell::
 resetPoolPointer()
 {
-  pool_ = NULL;
+  pool_ = nullptr;
 }
 
 CNurikabe::Cell *
@@ -4298,14 +4296,14 @@ getLShapeCornerCell() const
       return lcell;
   }
 
-  return NULL;
+  return nullptr;
 }
 
 CNurikabe::Pool *
 CNurikabe::Cell::
 getPool() const
 {
-  if (! isBlack()) return NULL;
+  if (! isBlack()) return nullptr;
 
   assert(pool_);
 
@@ -4441,7 +4439,7 @@ getN(int count) const
 {
   if (count > 1) {
     Cell *cell = getN(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getN(1);
   }
@@ -4449,7 +4447,7 @@ getN(int count) const
   if (coord_.row > 0)
     return grid_->getCell(Coord(coord_.row - 1, coord_.col));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4458,7 +4456,7 @@ getS(int count) const
 {
   if (count > 1) {
     Cell *cell = getS(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getS(1);
   }
@@ -4466,7 +4464,7 @@ getS(int count) const
   if (coord_.row < grid_->getNumRows() - 1)
     return grid_->getCell(Coord(coord_.row + 1, coord_.col));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4475,7 +4473,7 @@ getW(int count) const
 {
   if (count > 1) {
     Cell *cell = getW(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getW(1);
   }
@@ -4483,7 +4481,7 @@ getW(int count) const
   if (coord_.col > 0)
     return grid_->getCell(Coord(coord_.row, coord_.col - 1));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4492,7 +4490,7 @@ getE(int count) const
 {
   if (count > 1) {
     Cell *cell = getE(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getE(1);
   }
@@ -4500,7 +4498,7 @@ getE(int count) const
   if (coord_.col < grid_->getNumCols() - 1)
     return grid_->getCell(Coord(coord_.row, coord_.col + 1));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4509,7 +4507,7 @@ getNE(int count) const
 {
   if (count > 1) {
     Cell *cell = getNE(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getNE(1);
   }
@@ -4517,7 +4515,7 @@ getNE(int count) const
   if (coord_.row > 0 && coord_.col < grid_->getNumCols() - 1)
     return grid_->getCell(Coord(coord_.row - 1, coord_.col + 1));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4526,7 +4524,7 @@ getSE(int count) const
 {
   if (count > 1) {
     Cell *cell = getSE(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getSE(1);
   }
@@ -4534,7 +4532,7 @@ getSE(int count) const
   if (coord_.row < grid_->getNumRows() - 1 && coord_.col < grid_->getNumCols() - 1)
     return grid_->getCell(Coord(coord_.row + 1, coord_.col + 1));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4543,7 +4541,7 @@ getSW(int count) const
 {
   if (count > 1) {
     Cell *cell = getSW(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getSW(1);
   }
@@ -4551,7 +4549,7 @@ getSW(int count) const
   if (coord_.row < grid_->getNumRows() - 1 && coord_.col > 0)
     return grid_->getCell(Coord(coord_.row + 1, coord_.col - 1));
   else
-    return NULL;
+    return nullptr;
 }
 
 CNurikabe::Cell *
@@ -4560,7 +4558,7 @@ getNW(int count) const
 {
   if (count > 1) {
     Cell *cell = getNW(count - 1);
-    if (! cell) return NULL;
+    if (! cell) return nullptr;
 
     return cell->getNW(1);
   }
@@ -4568,7 +4566,7 @@ getNW(int count) const
   if (coord_.row > 0 && coord_.col > 0)
     return grid_->getCell(Coord(coord_.row - 1, coord_.col - 1));
   else
-    return NULL;
+    return nullptr;
 }
 
 std::string

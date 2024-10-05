@@ -249,15 +249,15 @@ class CNurikabe {
     void getConnectedCoords(Coords &coords);
 
    private:
-    Grid   *grid_;
+    Grid   *grid_              { nullptr };
     Coord   coord_;
-    int     value_;
-    int     solution_;
-    Region *region_constraint_;
-    Region *region_;
-    Pool   *pool_;
-    Island *island_;
-    Gap    *gap_;
+    int     value_             { UNKNOWN };
+    int     solution_          { UNKNOWN };
+    Region *region_constraint_ { nullptr };
+    Region *region_            { nullptr };
+    Pool   *pool_              { nullptr };
+    Island *island_            { nullptr };
+    Gap    *gap_               { nullptr };
   };
 
   typedef std::set<Cell *>    Cells;
@@ -445,15 +445,15 @@ class CNurikabe {
     void print(std::ostream &os) const;
 
    private:
-    Grid         *grid_;
-    Cell         *cell_;
+    Grid         *grid_ { nullptr };
+    Cell         *cell_ { nullptr };
     Coords        coords_;
-    bool          partial_;
+    bool          partial_ { false };
     Solutions     solutions_;
-    bool          solutionsValid_;
+    bool          solutionsValid_ { false };
     Solution      solution_;
     SolutionsMap  solutionsMap_;
-    int           maxDepth_;
+    int           maxDepth_ { 0 };
 
     OneWhiteConstraints oneWhiteConstraints_;
     OneBlackConstraints oneBlackConstraints_;
@@ -501,7 +501,7 @@ class CNurikabe {
     void print(std::ostream &os) const;
 
    private:
-    Grid   *grid_;
+    Grid   *grid_ { nullptr };
     Coords  coords_;
   };
 
@@ -538,7 +538,7 @@ class CNurikabe {
     void print(std::ostream &os) const;
 
    private:
-    Grid   *grid_;
+    Grid   *grid_ { nullptr };
     Coords  coords_;
     Gaps    gaps_;
   };
@@ -577,7 +577,7 @@ class CNurikabe {
     void print(std::ostream &os) const;
 
    private:
-    Grid    *grid_;
+    Grid    *grid_ { nullptr };
     Coords   coords_;
     Regions  regions_;
     Islands  islands_;
@@ -839,7 +839,7 @@ class CNurikabe {
   bool parse(const std::string &board_def, const std::string &solution_def);
 
  private:
-  Grid *grid_;
+  Grid *grid_ { nullptr };
 };
 
 #endif

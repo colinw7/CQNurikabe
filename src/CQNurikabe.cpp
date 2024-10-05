@@ -38,9 +38,9 @@ CQNurikabeApp()
   QHBoxLayout *nframe_layout  = new QHBoxLayout;
   QVBoxLayout *neframe_layout = new QVBoxLayout;
 
-  frame_layout  ->setMargin(0); frame_layout  ->setSpacing(0);
-  nframe_layout ->setMargin(0); nframe_layout ->setSpacing(0);
-  neframe_layout->setMargin(0); neframe_layout->setSpacing(0);
+  /* frame_layout  ->setMargin(0); */ frame_layout  ->setSpacing(0);
+  /* nframe_layout ->setMargin(0); */ nframe_layout ->setSpacing(0);
+  /* neframe_layout->setMargin(0); */ neframe_layout->setSpacing(0);
 
   frame->setLayout(frame_layout);
 

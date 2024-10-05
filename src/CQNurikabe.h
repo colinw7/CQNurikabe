@@ -89,10 +89,10 @@ class CQNurikabe : public CNurikabe {
  public:
   CQNurikabe(CQNurikabeApp *app);
 
-  void setBusy(bool busy) const;
-  bool checkBreak();
+  void setBusy(bool busy) const override;
+  bool checkBreak() override;
 
-  void notifyChanged();
+  void notifyChanged() override;
 
   bool isBusy() { return timer_ != -1; }
 
